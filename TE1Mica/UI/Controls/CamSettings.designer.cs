@@ -62,6 +62,7 @@ namespace TE1.UI.Controls
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.b끄기 = new DevExpress.XtraEditors.SimpleButton();
             this.b켜기 = new DevExpress.XtraEditors.SimpleButton();
+            this.col회전 = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.GridControl2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Bind조명설정)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GridView2)).BeginInit();
@@ -265,7 +266,8 @@ namespace TE1.UI.Controls
             this.col가로,
             this.col세로,
             this.col노출,
-            this.col상태});
+            this.col상태,
+            this.col회전});
             this.GridView1.FooterPanelHeight = 21;
             this.GridView1.GridControl = this.GridControl1;
             this.GridView1.GroupRowHeight = 21;
@@ -485,6 +487,15 @@ namespace TE1.UI.Controls
             this.b켜기.TabIndex = 8;
             this.b켜기.Text = "Turn on all";
             // 
+            // col회전
+            // 
+            this.col회전.AppearanceHeader.Options.UseTextOptions = true;
+            this.col회전.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.col회전.FieldName = "회전";
+            this.col회전.Name = "col회전";
+            this.col회전.Visible = true;
+            this.col회전.VisibleIndex = 8;
+            // 
             // CamSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -547,5 +558,6 @@ namespace TE1.UI.Controls
         private DevExpress.XtraEditors.SimpleButton b끄기;
         private DevExpress.XtraEditors.SimpleButton b켜기;
         private DevExpress.XtraGrid.Columns.GridColumn col노출;
+        private DevExpress.XtraGrid.Columns.GridColumn col회전;
     }
 }

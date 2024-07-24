@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TE1Mica", "TE1Mica\TE1Mica.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TE1MicaV", "TE1MicaV\TE1MicaV.csproj", "{599D0F72-E3D2-43F4-AA78-F5CF1E5A6262}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvUtils", "C:\IVM\TE1Vision\MvUtils\MvUtils\MvUtils.csproj", "{BDB2ED5C-4A7F-4116-B5A0-1831A1EC0624}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvUtils", "..\..\MvUtils\MvUtils\MvUtils.csproj", "{BDB2ED5C-4A7F-4116-B5A0-1831A1EC0624}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

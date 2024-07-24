@@ -25,9 +25,9 @@ namespace TE1.Schemas
         public Boolean Init()
         {
             this.Add(카메라구분.Cam01, new HikeGigE() { 구분 = 카메라구분.Cam01, 코드 = "DA2729845", 가로 = 4096, 세로 = 3000, OffsetX = 0, OffsetY = 0 });
-            this.Add(카메라구분.Cam02, new HikeGigE() { 구분 = 카메라구분.Cam02, 코드 = "DA2729846", 가로 = 4096, 세로 = 3000, OffsetX = 0, OffsetY = 0, ReverseX = true, ReverseY = true });
+            this.Add(카메라구분.Cam02, new HikeGigE() { 구분 = 카메라구분.Cam02, 코드 = "DA2729846", 가로 = 4096, 세로 = 3000, OffsetX = 0, OffsetY = 0, ReverseX = false, ReverseY = true });
             this.Add(카메라구분.Cam03, new HikeGigE() { 구분 = 카메라구분.Cam03, 코드 = "DA2729842", 가로 = 4096, 세로 = 3000, OffsetX = 0, OffsetY = 0 });
-            this.Add(카메라구분.Cam04, new HikeGigE() { 구분 = 카메라구분.Cam04, 코드 = "DA2729843", 가로 = 4096, 세로 = 3000, OffsetX = 0, OffsetY = 0, ReverseX = true, ReverseY = true });
+            this.Add(카메라구분.Cam04, new HikeGigE() { 구분 = 카메라구분.Cam04, 코드 = "DA2729843", 가로 = 4096, 세로 = 3000, OffsetX = 0, OffsetY = 0, ReverseX = false, ReverseY = true });
             this.Add(카메라구분.Cam05, new HikeGigE() { 구분 = 카메라구분.Cam05, 코드 = "DA2729844", 가로 = 4096, 세로 = 3000, OffsetX = 0, OffsetY = 0 });
             this.Add(카메라구분.Cam06, new HikeGigE() { 구분 = 카메라구분.Cam06, 코드 = "DA2729847", 가로 = 4096, 세로 = 3000, OffsetX = 0, OffsetY = 0, ReverseX = true, ReverseY = true });
             this.Add(카메라구분.Cam07, new HikeGigE() { 구분 = 카메라구분.Cam07, 코드 = "DA2729841", 가로 = 4096, 세로 = 3000, OffsetX = 0, OffsetY = 0 });

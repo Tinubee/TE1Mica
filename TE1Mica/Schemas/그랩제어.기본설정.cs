@@ -1,4 +1,5 @@
 ﻿using Cognex.VisionPro;
+using Cognex.VisionPro.ImageProcessing;
 using MvCamCtrl.NET;
 using MvCamCtrl.NET.CameraParams;
 using Newtonsoft.Json;
@@ -7,11 +8,28 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
+using Cognex.VisionPro.Implementation;
+
+
+
 
 namespace TE1.Schemas
 {
+    public enum 회전구분
+    {
+        None,
+        Rotate90Deg,
+        Rotate180Deg,
+        Rotate270Deg,
+        Flip,
+        FlipAndRotate90Deg,
+        FlipAndRotate180Deg,
+        FlipAndRotate270Deg
+    }
+
     public class 그랩장치 : IDisposable
     {
         [JsonProperty("Camera"), Translation("Camera", "카메라")]
@@ -34,6 +52,8 @@ namespace TE1.Schemas
         public virtual Double 교정X { get; set; } = 0;
         [JsonProperty("CalibY"), Description("CalibY(µm)"), Translation("CalibY(µm)", "CalibY(µm)")]
         public virtual Double 교정Y { get; set; } = 0;
+        [JsonProperty("Rotate"), Description("Rotation"), Translation("Rotation", "회전")]
+        public virtual 회전구분 회전 { get; set; } = 회전구분.None;
 
         [JsonIgnore, Description("State"), Translation("State", "상태")]
         public virtual Boolean 상태 { get; set; } = false;
@@ -81,6 +101,7 @@ namespace TE1.Schemas
             노출 = 장치.노출;
             교정X = 장치.교정X;
             교정Y = 장치.교정Y;
+            회전 = 장치.회전;
             //원점XP = 장치.원점XP;
             //원점YP = 장치.원점YP;
             //원점XM = 장치.원점XM;
@@ -179,7 +200,10 @@ namespace TE1.Schemas
                     CogImage8Grey image = new CogImage8Grey();
                     cogImage8Root.Initialize(ImageWidth, ImageHeight, BufferAddress, ImageWidth, null);
                     image.SetRoot(cogImage8Root);
-                    return image;
+                    
+                    if(this.회전 == 회전구분.None) return image;
+                    
+                    return RotateImage(image, (CogIPOneImageFlipRotateOperationConstants)this.회전);
                 }
             }
             catch (Exception e)
@@ -188,6 +212,31 @@ namespace TE1.Schemas
             }
             return null;
         }
+
+
+        // 이미지를 회전시키는 함수
+        public ICogImage RotateImage(ICogImage inputImage, CogIPOneImageFlipRotateOperationConstants rotate)
+        {
+            // IPOneImageTool 객체 생성
+            CogIPOneImageTool ipOneImageTool = new CogIPOneImageTool();
+
+            // 입력 이미지 설정
+            ipOneImageTool.InputImage = inputImage;
+
+            // 회전 변환 설정
+            CogIPOneImageFlipRotate rotateTool = new CogIPOneImageFlipRotate();
+            rotateTool.OperationInPixelSpace = rotate;
+            
+            // 회전 도구를 이미지 프로세싱 도구에 추가
+            ipOneImageTool.Operators.Add(rotateTool);
+
+            // 도구 실행
+            ipOneImageTool.Run();
+
+            // 결과 이미지 반환
+            return ipOneImageTool.OutputImage;
+        }
+
         public Mat MatImage()
         {
             if (Image != null) return Image;
