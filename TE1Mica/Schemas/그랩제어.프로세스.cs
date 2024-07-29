@@ -29,9 +29,9 @@ namespace TE1.Schemas
             this.Add(카메라구분.Cam03, new HikeGigE() { 구분 = 카메라구분.Cam03, 코드 = "DA2729842", 가로 = 4096, 세로 = 3000, OffsetX = 0, OffsetY = 0 });
             this.Add(카메라구분.Cam04, new HikeGigE() { 구분 = 카메라구분.Cam04, 코드 = "DA2729843", 가로 = 4096, 세로 = 3000, OffsetX = 0, OffsetY = 0, ReverseX = false, ReverseY = true });
             this.Add(카메라구분.Cam05, new HikeGigE() { 구분 = 카메라구분.Cam05, 코드 = "DA2729844", 가로 = 4096, 세로 = 3000, OffsetX = 0, OffsetY = 0 });
-            this.Add(카메라구분.Cam06, new HikeGigE() { 구분 = 카메라구분.Cam06, 코드 = "DA2729847", 가로 = 4096, 세로 = 3000, OffsetX = 0, OffsetY = 0, ReverseX = true, ReverseY = true });
+            this.Add(카메라구분.Cam06, new HikeGigE() { 구분 = 카메라구분.Cam06, 코드 = "DA2729847", 가로 = 4096, 세로 = 3000, OffsetX = 0, OffsetY = 0, ReverseX = false, ReverseY = true });
             this.Add(카메라구분.Cam07, new HikeGigE() { 구분 = 카메라구분.Cam07, 코드 = "DA2729841", 가로 = 4096, 세로 = 3000, OffsetX = 0, OffsetY = 0 });
-            this.Add(카메라구분.Cam08, new HikeGigE() { 구분 = 카메라구분.Cam08, 코드 = "DA2729840", 가로 = 4096, 세로 = 3000, OffsetX = 0, OffsetY = 0, ReverseX = true, ReverseY = true });
+            this.Add(카메라구분.Cam08, new HikeGigE() { 구분 = 카메라구분.Cam08, 코드 = "DA2729840", 가로 = 4096, 세로 = 3000, OffsetX = 0, OffsetY = 0, ReverseX = false, ReverseY = true });
 
             // 카메라 설정 저장정보 로드
             그랩장치 정보;
@@ -42,6 +42,7 @@ namespace TE1.Schemas
                 {
                     정보 = this.GetItem(설정.구분);
                     if (정보 == null) continue;
+
                     정보.Set(설정);
                 }
             }

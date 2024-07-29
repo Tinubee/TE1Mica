@@ -1,5 +1,6 @@
 ﻿using DevExpress.XtraWaitForm;
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TE1.Schemas;
@@ -23,6 +24,18 @@ namespace TE1
             this.FormClosing += MainFormClosing;
             //this.TabFormControl.SelectedPageChanged += SelectedPageChanged;
             //this.t환경설정.SelectedPageChanged += SelectedTabPageChanged;
+            this.KeyPreview = true;
+            this.KeyDown += MainForm_KeyDown;
+        }
+
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            //if (e.KeyCode == Keys.H)
+            //{
+            //    Debug.WriteLine("H입력");
+            //    int a = 0;
+            //    Global.장치통신.SetDevice("W0", 1, out a);
+            //}
         }
 
         private void ShowWaitForm()
