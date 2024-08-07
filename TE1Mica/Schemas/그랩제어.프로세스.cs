@@ -21,7 +21,7 @@ namespace TE1.Schemas
         private string 저장파일 => Path.Combine(Global.환경설정.기본경로, "Cameras.json");
         [JsonIgnore]
         public Boolean 정상여부 => !this.Values.Any(e => !e.상태);
-
+        
         public Boolean Init()
         {
             this.Add(카메라구분.Cam01, new HikeGigE() { 구분 = 카메라구분.Cam01, 코드 = "DA2729845", 가로 = 4096, 세로 = 3000, OffsetX = 0, OffsetY = 0 });
@@ -92,9 +92,31 @@ namespace TE1.Schemas
             if (Global.장치상태.자동수동)
             {
                 검사정보 검사 = Global.검사자료.현재검사찾기(장치.구분);
-                if (검사 == null) return;
-                Global.비전검사.Run(장치, 검사);
                 장치.TurnOff();
+
+                if (검사 == null) return;
+
+                //if (장치.구분 == 카메라구분.Cam02 || 장치.구분 == 카메라구분.Cam04)
+                //{
+                //    if (!검사.그랩완료_카메라2_4.Contains(장치.구분)) 검사.그랩완료_카메라2_4.Add(장치.구분);
+
+                //    if (검사.그랩완료_카메라2_4.Count == 2)
+                //    {
+                //        Global.그랩제어.GetItem(카메라구분.Cam02).MergeImages(좌측이미지, 우측이미지, 7400, 609);
+                //    }
+                //}
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                Global.비전검사.Run(장치, 검사);
+                
             }
             else
             {

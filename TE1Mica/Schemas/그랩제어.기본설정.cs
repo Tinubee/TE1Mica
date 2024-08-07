@@ -54,6 +54,13 @@ namespace TE1.Schemas
         public virtual Double 교정Y { get; set; } = 0;
         [JsonProperty("Rotate"), Description("Rotation"), Translation("Rotation", "회전")]
         public virtual 회전구분 회전 { get; set; } = 회전구분.None;
+        [JsonProperty("CameraAlignPosX"), Description("CameraAlignPosX"), Translation("AlignPosX", "정렬위치X")]
+        public virtual Int32 보정X { get; set; } = 0;
+        [JsonProperty("CameraAlignPosY"), Description("CameraAlignPosY"), Translation("AlignPosY", "정렬위치Y")]
+        public virtual Int32 보정Y { get; set; } = 0;
+        [JsonProperty("CameraAlignPosR"), Description("CameraAlignPosR"), Translation("AlignPosR", "정렬위치R")]
+        public virtual Int32 보정R { get; set; } = 0;
+
 
         [JsonIgnore, Description("State"), Translation("State", "상태")]
         public virtual Boolean 상태 { get; set; } = false;
@@ -102,6 +109,9 @@ namespace TE1.Schemas
             교정X = 장치.교정X;
             교정Y = 장치.교정Y;
             회전 = 장치.회전;
+            보정X = 장치.보정X;
+            보정Y = 장치.보정Y;
+            보정R = 장치.보정R;
             //원점XP = 장치.원점XP;
             //원점YP = 장치.원점YP;
             //원점XM = 장치.원점XM;
@@ -244,6 +254,102 @@ namespace TE1.Schemas
             return new Mat(ImageHeight, ImageWidth, ImageType, BufferAddress);
         }
         #endregion
+
+        public void MergeImages(Mat 좌측이미지, Mat 우측이미지, int LeftX, int RightX)
+        {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            Double leftAngle = 0.279972;
+            Double rightAngle = 0.216211;
+
+            Mat leftProcessed = ProcessImage(좌측이미지, leftAngle);
+            Mat rightProcessed = ProcessImage(우측이미지, rightAngle);
+
+            Mat mergedImage = 이미지합성(leftProcessed, rightProcessed, LeftX, RightX);
+            //this.합성이미지들.Enqueue(mergedImage);
+            stopwatch.Stop();
+            Console.WriteLine($"Total processing time: {stopwatch.ElapsedMilliseconds} ms");
+        }
+        public Mat 이미지합성(Mat leftImg, Mat rightImg, Int32 leftX, Int32 rightX)
+        {
+            Mat leftImgCropped = CropImage(leftImg, true);
+            Mat rightImgCropped = CropImage(rightImg, false);
+
+            Int32 mergedWidth = leftX + (rightImgCropped.Cols - rightX);
+            Int32 mergedHeight = Math.Max(leftImgCropped.Rows, rightImgCropped.Rows);
+
+            Mat mergedImg = new Mat(mergedHeight, mergedWidth, MatType.CV_8UC1, Scalar.Black);
+
+            // Define the rows and columns for left image cropping
+            Int32 leftStartRow = 0;
+            Int32 leftEndRow = leftImgCropped.Rows;
+            Int32 leftStartCol = 0;
+            Int32 leftEndCol = leftX;
+
+            // Define the rows and columns for merging left image into merged image
+            Int32 mergeLeftStartRow = 0;
+            Int32 mergeLeftEndRow = mergedImg.Rows;
+            Int32 mergeLeftStartCol = 0;
+            Int32 mergeLeftEndCol = leftX;
+
+            // Copy left image to merged image
+            leftImgCropped.SubMat(leftStartRow, leftEndRow, leftStartCol, leftEndCol)
+                .CopyTo(mergedImg.SubMat(mergeLeftStartRow, mergeLeftEndRow, mergeLeftStartCol, mergeLeftEndCol));
+
+            // Define the rows and columns for right image cropping
+            Int32 rightStartRow = 0;
+            Int32 rightEndRow = rightImgCropped.Rows;
+            Int32 rightStartCol = rightX;
+            Int32 rightEndCol = rightImgCropped.Cols;
+
+            // Define the rows and columns for merging right image into merged image
+            Int32 mergeRightStartRow = 0;
+            Int32 mergeRightEndRow = mergedImg.Rows;
+            Int32 mergeRightStartCol = leftX;
+            Int32 mergeRightEndCol = mergedImg.Cols;
+
+            // Copy right image to merged image
+            rightImgCropped.SubMat(rightStartRow, rightEndRow, rightStartCol, rightEndCol)
+                .CopyTo(mergedImg.SubMat(mergeRightStartRow, mergeRightEndRow, mergeRightStartCol, mergeRightEndCol));
+
+            return mergedImg;
+        }
+        public Mat CropImage(Mat image, Boolean isLeft)
+        {
+            int startRow = isLeft ? 42 : 0;
+            int endRow = isLeft ? image.Rows : image.Rows - 42;
+            int startCol = 0;
+            int endCol = image.Cols;
+
+            return image.SubMat(startRow, endRow, startCol, endCol);
+            //return isLeft ? image[42.., ..] : image[..^42, ..];
+        }
+
+        public Mat ProcessImage(Mat Image, Double angle)
+        {
+            Double scaleFactor = 0.5;
+            Mat resizedImg = ResizeImage(Image, scaleFactor);
+            Mat rotatedImg = RotateImage(resizedImg, angle);
+            return rotatedImg;
+        }
+
+        public Mat ResizeImage(Mat image, Double scaleFactor)
+        {
+            var newSize = new OpenCvSharp.Size(image.Width * scaleFactor, image.Height * scaleFactor);
+            return image.Resize(newSize, 0, 0, InterpolationFlags.Area);
+        }
+
+        public Mat RotateImage(Mat image, Double angle)
+        {
+            Point2f center = new Point2f(image.Cols / 2f, image.Rows / 2f);
+            Mat rotMatrix = Cv2.GetRotationMatrix2D(center, angle, 1.0);
+            Mat rotated = new Mat();
+            Cv2.WarpAffine(image, rotated, rotMatrix, image.Size(), InterpolationFlags.Linear, BorderTypes.Constant, Scalar.Black);
+            return rotated;
+        }
+
+
     }
 
     public class HikeGigE : 그랩장치

@@ -18,6 +18,7 @@ namespace TE1.Schemas
         [JsonIgnore]
         private 검사자료테이블 테이블 = null;
 
+
         public void Init()
         {
             this.AllowEdit = true;
@@ -66,11 +67,16 @@ namespace TE1.Schemas
         }
 
         public void 검사항목제거(List<검사정보> 자료) => this.테이블.Remove(자료);
+        
+        
         public Boolean 결과삭제(검사정보 정보)
         {
             this.Remove(정보);
             return this.테이블.Delete(정보) > 0;
         }
+
+
+       
 
         #region 검사로직
         public 검사정보 수동좌측 = null;

@@ -60,8 +60,17 @@ namespace TE1.Schemas
         [Column("idpty"), JsonProperty("idpty"), Translation("Y`", "Y`")]
         public Double 보정Y { get; set; } = 0;
 
+
+        [JsonIgnore]
+        public List<카메라구분> 그랩완료_카메라2_4 = new List<카메라구분>();
+        [JsonIgnore]
+        public List<카메라구분> 그랩완료_카메라6_8 = new List<카메라구분>();
+
         [NotMapped, JsonIgnore]
         public 측정자료 검사내역 = null;
+
+
+
 
         public static 검사정보 신규검사(시트구분 시트)
         {
