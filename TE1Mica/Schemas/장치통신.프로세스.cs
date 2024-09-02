@@ -78,25 +78,25 @@ namespace TE1.Schemas
             {
                 Debug.WriteLine("좌측제품촬영", "Trig");
                 Global.그랩제어.좌측제품촬영();
-                this.입출자료.SetDelay(정보주소.제품촬영L, 0, 200);
+                //this.입출자료.SetDelay(정보주소.제품촬영L, 0, 200);
             }
             if (this.입출자료.Firing(정보주소.시트촬영L, true))
             {
                 Debug.WriteLine("좌측시트촬영", "Trig");
                 Global.그랩제어.좌측시트촬영();
-                this.입출자료.SetDelay(정보주소.시트촬영L, 0, 200);
+                //this.입출자료.SetDelay(정보주소.시트촬영L, 0,200);
             }
             if (this.입출자료.Firing(정보주소.제품촬영R, true))
             {
                 Debug.WriteLine("우측제품촬영", "Trig");
                 Global.그랩제어.우측제품촬영();
-                this.입출자료.SetDelay(정보주소.제품촬영R, 0, 200);
+                //this.입출자료.SetDelay(정보주소.제품촬영R, 0, 200);
             }
             if (this.입출자료.Firing(정보주소.시트촬영R, true))
             {
                 Debug.WriteLine("우측시트촬영", "Trig");
                 Global.그랩제어.우측시트촬영();
-                this.입출자료.SetDelay(정보주소.시트촬영R, 0, 200);
+                //this.입출자료.SetDelay(정보주소.시트촬영R, 0, 200);
             }
             if (this.입출자료.Firing(정보주소.위치요청L, true))
             {
@@ -127,7 +127,9 @@ namespace TE1.Schemas
             }
             Global.검사자료.검사결과계산(검사);
             Debug.WriteLine($"결과전송: {검사.결과}, R={검사.보정R}, X={검사.보정X}, Y={검사.보정Y}", "Trig");
-            if (검사.결과) 결과전송(시트, true, 검사.보정R, 검사.보정X, 검사.보정Y);
+            if (검사.결과) {
+                결과전송(시트, true, 검사.보정R, 검사.보정X, 검사.보정Y);
+            } 
             else 결과전송(시트, false); 
         }
         private void 결과전송(시트구분 시트, Boolean 정상, Double R = 0, Double X = 0, Double Y = 0)

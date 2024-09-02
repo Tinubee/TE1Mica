@@ -21,17 +21,17 @@ namespace TE1.Schemas
         private string 저장파일 => Path.Combine(Global.환경설정.기본경로, "Cameras.json");
         [JsonIgnore]
         public Boolean 정상여부 => !this.Values.Any(e => !e.상태);
-
+        
         public Boolean Init()
         {
             this.Add(카메라구분.Cam01, new HikeGigE() { 구분 = 카메라구분.Cam01, 코드 = "DA2729845", 가로 = 4096, 세로 = 3000, OffsetX = 0, OffsetY = 0 });
-            this.Add(카메라구분.Cam02, new HikeGigE() { 구분 = 카메라구분.Cam02, 코드 = "DA2729846", 가로 = 4096, 세로 = 3000, OffsetX = 0, OffsetY = 0, ReverseX = true, ReverseY = true });
+            this.Add(카메라구분.Cam02, new HikeGigE() { 구분 = 카메라구분.Cam02, 코드 = "DA2729846", 가로 = 4096, 세로 = 3000, OffsetX = 0, OffsetY = 0, ReverseX = false, ReverseY = true });
             this.Add(카메라구분.Cam03, new HikeGigE() { 구분 = 카메라구분.Cam03, 코드 = "DA2729842", 가로 = 4096, 세로 = 3000, OffsetX = 0, OffsetY = 0 });
-            this.Add(카메라구분.Cam04, new HikeGigE() { 구분 = 카메라구분.Cam04, 코드 = "DA2729843", 가로 = 4096, 세로 = 3000, OffsetX = 0, OffsetY = 0, ReverseX = true, ReverseY = true });
+            this.Add(카메라구분.Cam04, new HikeGigE() { 구분 = 카메라구분.Cam04, 코드 = "DA2729843", 가로 = 4096, 세로 = 3000, OffsetX = 0, OffsetY = 0, ReverseX = false, ReverseY = true });
             this.Add(카메라구분.Cam05, new HikeGigE() { 구분 = 카메라구분.Cam05, 코드 = "DA2729844", 가로 = 4096, 세로 = 3000, OffsetX = 0, OffsetY = 0 });
-            this.Add(카메라구분.Cam06, new HikeGigE() { 구분 = 카메라구분.Cam06, 코드 = "DA2729847", 가로 = 4096, 세로 = 3000, OffsetX = 0, OffsetY = 0, ReverseX = true, ReverseY = true });
+            this.Add(카메라구분.Cam06, new HikeGigE() { 구분 = 카메라구분.Cam06, 코드 = "DA2729847", 가로 = 4096, 세로 = 3000, OffsetX = 0, OffsetY = 0, ReverseX = false, ReverseY = true });
             this.Add(카메라구분.Cam07, new HikeGigE() { 구분 = 카메라구분.Cam07, 코드 = "DA2729841", 가로 = 4096, 세로 = 3000, OffsetX = 0, OffsetY = 0 });
-            this.Add(카메라구분.Cam08, new HikeGigE() { 구분 = 카메라구분.Cam08, 코드 = "DA2729840", 가로 = 4096, 세로 = 3000, OffsetX = 0, OffsetY = 0, ReverseX = true, ReverseY = true });
+            this.Add(카메라구분.Cam08, new HikeGigE() { 구분 = 카메라구분.Cam08, 코드 = "DA2729840", 가로 = 4096, 세로 = 3000, OffsetX = 0, OffsetY = 0, ReverseX = false, ReverseY = true });
 
             // 카메라 설정 저장정보 로드
             그랩장치 정보;
@@ -42,6 +42,7 @@ namespace TE1.Schemas
                 {
                     정보 = this.GetItem(설정.구분);
                     if (정보 == null) continue;
+
                     정보.Set(설정);
                 }
             }
@@ -91,9 +92,54 @@ namespace TE1.Schemas
             if (Global.장치상태.자동수동)
             {
                 검사정보 검사 = Global.검사자료.현재검사찾기(장치.구분);
-                if (검사 == null) return;
-                Global.비전검사.Run(장치, 검사);
                 장치.TurnOff();
+
+                if (검사 == null) return;
+
+                Global.비전검사.Run(장치, 검사);
+
+                // 왼쪽,오른쪽 시트 측정완료(촬영완료 아님) 후  bit off
+                if (장치.구분 == 카메라구분.Cam01 || 장치.구분 == 카메라구분.Cam03)
+                {
+                    if (!검사.그랩완료_카메라1_3.Contains(장치.구분)) 검사.그랩완료_카메라1_3.Add(장치.구분);
+
+                    if (검사.그랩완료_카메라1_3.Count == 2)
+                    {
+                        검사.그랩완료_카메라1_3.Clear();
+                        Global.장치통신.제품촬영L = false;
+                    }
+                }
+
+                else if (장치.구분 == 카메라구분.Cam02 || 장치.구분 == 카메라구분.Cam04)
+                {
+                    if (!검사.그랩완료_카메라2_4.Contains(장치.구분)) 검사.그랩완료_카메라2_4.Add(장치.구분);
+
+                    if (검사.그랩완료_카메라2_4.Count == 2)
+                    {
+                        검사.그랩완료_카메라2_4.Clear();
+                        Global.장치통신.시트촬영L = false;
+                    }
+                }
+                else if (장치.구분 == 카메라구분.Cam05 || 장치.구분 == 카메라구분.Cam07)
+                {
+                    if (!검사.그랩완료_카메라5_7.Contains(장치.구분)) 검사.그랩완료_카메라5_7.Add(장치.구분);
+
+                    if (검사.그랩완료_카메라5_7.Count == 2)
+                    {
+                        검사.그랩완료_카메라5_7.Clear();
+                        Global.장치통신.제품촬영R = false;
+                    }
+                }
+                else if (장치.구분 == 카메라구분.Cam06 || 장치.구분 == 카메라구분.Cam08)
+                {
+                    if (!검사.그랩완료_카메라6_8.Contains(장치.구분)) 검사.그랩완료_카메라6_8.Add(장치.구분);
+
+                    if (검사.그랩완료_카메라6_8.Count == 2)
+                    {
+                        검사.그랩완료_카메라6_8.Clear();
+                        Global.장치통신.시트촬영R = false;
+                    }
+                }
             }
             else
             {

@@ -54,6 +54,7 @@ namespace TE1.UI.Controls
             this.col노출 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.col상태 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.e상태 = new DevExpress.XtraEditors.Repository.RepositoryItemToggleSwitch();
+            this.col회전 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.e대비 = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
             this.e밝기 = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
             this.b저장 = new DevExpress.XtraEditors.SimpleButton();
@@ -62,6 +63,9 @@ namespace TE1.UI.Controls
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.b끄기 = new DevExpress.XtraEditors.SimpleButton();
             this.b켜기 = new DevExpress.XtraEditors.SimpleButton();
+            this.col보정X = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.col보정Y = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.col보정R = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.GridControl2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Bind조명설정)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GridView2)).BeginInit();
@@ -265,7 +269,11 @@ namespace TE1.UI.Controls
             this.col가로,
             this.col세로,
             this.col노출,
-            this.col상태});
+            this.col상태,
+            this.col회전,
+            this.col보정X,
+            this.col보정Y,
+            this.col보정R});
             this.GridView1.FooterPanelHeight = 21;
             this.GridView1.GridControl = this.GridControl1;
             this.GridView1.GroupRowHeight = 21;
@@ -381,6 +389,15 @@ namespace TE1.UI.Controls
             this.e상태.OffText = "Off";
             this.e상태.OnText = "On";
             // 
+            // col회전
+            // 
+            this.col회전.AppearanceHeader.Options.UseTextOptions = true;
+            this.col회전.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.col회전.FieldName = "회전";
+            this.col회전.Name = "col회전";
+            this.col회전.Visible = true;
+            this.col회전.VisibleIndex = 11;
+            // 
             // e대비
             // 
             this.e대비.AutoHeight = false;
@@ -485,6 +502,33 @@ namespace TE1.UI.Controls
             this.b켜기.TabIndex = 8;
             this.b켜기.Text = "Turn on all";
             // 
+            // col보정X
+            // 
+            this.col보정X.AppearanceHeader.Options.UseTextOptions = true;
+            this.col보정X.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.col보정X.FieldName = "보정X";
+            this.col보정X.Name = "col보정X";
+            this.col보정X.Visible = true;
+            this.col보정X.VisibleIndex = 10;
+            // 
+            // col보정Y
+            // 
+            this.col보정Y.AppearanceHeader.Options.UseTextOptions = true;
+            this.col보정Y.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.col보정Y.FieldName = "보정Y";
+            this.col보정Y.Name = "col보정Y";
+            this.col보정Y.Visible = true;
+            this.col보정Y.VisibleIndex = 9;
+            // 
+            // col보정R
+            // 
+            this.col보정R.AppearanceHeader.Options.UseTextOptions = true;
+            this.col보정R.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.col보정R.FieldName = "보정R";
+            this.col보정R.Name = "col보정R";
+            this.col보정R.Visible = true;
+            this.col보정R.VisibleIndex = 8;
+            // 
             // CamSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -547,5 +591,9 @@ namespace TE1.UI.Controls
         private DevExpress.XtraEditors.SimpleButton b끄기;
         private DevExpress.XtraEditors.SimpleButton b켜기;
         private DevExpress.XtraGrid.Columns.GridColumn col노출;
+        private DevExpress.XtraGrid.Columns.GridColumn col회전;
+        private DevExpress.XtraGrid.Columns.GridColumn col보정X;
+        private DevExpress.XtraGrid.Columns.GridColumn col보정Y;
+        private DevExpress.XtraGrid.Columns.GridColumn col보정R;
     }
 }

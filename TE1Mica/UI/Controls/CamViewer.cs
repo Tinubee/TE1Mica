@@ -89,6 +89,14 @@ namespace TE1.UI.Controls
             {
                 this.e뷰어.InteractiveGraphics.Clear();
                 this.e뷰어.StaticGraphics.Clear();
+
+
+                if (Global.그랩제어[카메라].회전 == 회전구분.FlipAndRotate90Deg || Global.그랩제어[카메라].회전 == 회전구분.FlipAndRotate270Deg || Global.그랩제어[카메라].회전 == 회전구분.Rotate90Deg || Global.그랩제어[카메라].회전 == 회전구분.Rotate270Deg)
+                {
+                    this.e뷰어.StaticGraphics.Add(new CogLine() { X = e뷰어.Image.Height / 2, Y = e뷰어.Image.Width / 2, Rotation = 0 }, "Lines");
+                    this.e뷰어.StaticGraphics.Add(new CogLine() { X = e뷰어.Image.Height / 2, Y = e뷰어.Image.Width / 2, Rotation = Math.PI / 2 }, "Lines");
+                    return;
+                }
                 this.e뷰어.StaticGraphics.Add(new CogLine() { X = e뷰어.Image.Width / 2, Y = e뷰어.Image.Height / 2, Rotation = 0 }, "Lines");
                 this.e뷰어.StaticGraphics.Add(new CogLine() { X = e뷰어.Image.Width / 2, Y = e뷰어.Image.Height / 2, Rotation = Math.PI / 2 }, "Lines");
             }
