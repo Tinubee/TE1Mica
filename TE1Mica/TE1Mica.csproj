@@ -36,7 +36,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Remote|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>\\192.168.11.5\c\IVM\TE1Mica\Execute\</OutputPath>
+    <OutputPath>\\192.168.11.5\ivm\TE1Mica\Execute\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>

@@ -28,19 +28,33 @@ namespace TE1.Schemas
 
         private enum 정보주소 : Int32
         {
-            [Address("B1000", 1000,  0, true)] 통신핑퐁,
-            [Address("B1001", 1000,  1, true)] 피씨상태,
+            //[Address("B1000", 1000,  0, true)] 통신핑퐁,
+            //[Address("B1001", 1000,  1, true)] 피씨상태,
+            //[Address("B1002", 1000, -1, true)] 자동수동,
+            //[Address("B1003", 1000, -1, true)] 시작정지,
+            //[Address("B1004", 3000,  0, true)] 제품촬영L,
+            //[Address("B1005", 3000,  0, true)] 시트촬영L,
+            //[Address("B1006", 3000,  0, true)] 위치요청L,
+            //[Address("B1007", 3000,  0, true)] 위치오류L, // Align 오류시 처리 해야 할 사항?
+            //[Address("B1008", 3000,  0, true)] 제품촬영R,
+            //[Address("B1009", 3000,  0, true)] 시트촬영R,
+            //[Address("B100A", 3000,  0, true)] 위치요청R,
+            //[Address("B100B", 3000,  0, true)] 위치오류R, // Align 오류 시 처리?
+            //[Address("B100F", 3000,  0, true)] 배출완료,
+
+            [Address("B1000", 1000, 0, true)] 통신핑퐁,
+            [Address("B1001", 1000, 1, true)] 피씨상태,
             [Address("B1002", 1000, -1, true)] 자동수동,
             [Address("B1003", 1000, -1, true)] 시작정지,
-            [Address("B1004", 3000,  0, true)] 제품촬영L,
-            [Address("B1005", 3000,  0, true)] 시트촬영L,
-            [Address("B1006", 3000,  0, true)] 위치요청L,
-            [Address("B1007", 3000,  0, true)] 위치오류L, // Align 오류시 처리 해야 할 사항?
-            [Address("B1008", 3000,  0, true)] 제품촬영R,
-            [Address("B1009", 3000,  0, true)] 시트촬영R,
-            [Address("B100A", 3000,  0, true)] 위치요청R,
-            [Address("B100B", 3000,  0, true)] 위치오류R, // Align 오류 시 처리?
-            [Address("B100F", 3000,  0, true)] 배출완료,
+            [Address("B1004", 500, 0, true)] 제품촬영L,
+            [Address("B1005", 500, 0, true)] 시트촬영L,
+            [Address("B1006", 3000, 0, true)] 위치요청L,
+            [Address("B1007", 3000, 0, true)] 위치오류L, // Align 오류시 처리 해야 할 사항?
+            [Address("B1008", 500, 0, true)] 제품촬영R,
+            [Address("B1009", 500, 0, true)] 시트촬영R,
+            [Address("B100A", 3000, 0, true)] 위치요청R,
+            [Address("B100B", 3000, 0, true)] 위치오류R, // Align 오류 시 처리?
+            [Address("B100F", 3000, 0, true)] 배출완료,
 
             [Address("WD", 0, 0, false)] 생산수량,
             [Address("WF")] 모델번호,

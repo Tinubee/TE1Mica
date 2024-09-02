@@ -1,4 +1,5 @@
 ﻿using Cognex.VisionPro;
+using Cognex.VisionPro.ImageProcessing;
 using Cognex.VisionPro.QuickBuild;
 using Cognex.VisionPro.ToolBlock;
 using Cognex.VisionPro.ToolGroup;
@@ -150,8 +151,17 @@ namespace TE1.Schemas
         }
         public Boolean 이미지검사(ICogImage image)
         {
+            //if (image == null) return false;
+            //this.Run(image, Global.검사자료.현재검사찾기(카메라));
+            //return true;
+
+
             if (image == null) return false;
-            this.Run(image, Global.검사자료.현재검사찾기(카메라));
+            if (Global.그랩제어[카메라].회전 == 회전구분.None) return true;
+
+            //Global.그랩제어[카메라].RotateImage(image, (CogIPOneImageFlipRotateOperationConstants)Global.그랩제어[카메라].회전);
+
+            this.Run(Global.그랩제어[카메라].RotateImage(image, (CogIPOneImageFlipRotateOperationConstants)Global.그랩제어[카메라].회전), Global.검사자료.현재검사찾기(카메라));
             return true;
         }
         public Boolean 다시검사()
@@ -174,6 +184,7 @@ namespace TE1.Schemas
 
         public Boolean Run(ICogImage image, 검사정보 검사)
         {
+            Debug.WriteLine("수동런진입");
             Boolean accepted = false;
             try
             {

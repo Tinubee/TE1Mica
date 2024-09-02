@@ -93,6 +93,7 @@ namespace TE1.Schemas
         public Boolean Run(그랩장치 장치, 검사정보 검사)
         {
             if (장치 == null || 검사 == null) return false;
+            
             Boolean r = Run(장치.구분, 장치.CogImage(), 검사);
             Global.사진자료.SaveImage(장치, 검사);
             return r;
