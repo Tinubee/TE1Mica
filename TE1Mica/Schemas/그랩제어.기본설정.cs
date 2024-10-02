@@ -85,7 +85,8 @@ namespace TE1.Schemas
 
         [JsonIgnore]
         public Boolean 연속촬영여부 = false;
-
+        [JsonIgnore]
+        public DateTime 검사시간 { get; set; } = DateTime.Now;
         [JsonIgnore]
         public const String 로그영역 = "Camera";
 
@@ -112,10 +113,6 @@ namespace TE1.Schemas
             보정X = 장치.보정X;
             보정Y = 장치.보정Y;
             보정R = 장치.보정R;
-            //원점XP = 장치.원점XP;
-            //원점YP = 장치.원점YP;
-            //원점XM = 장치.원점XM;
-            //원점YM = 장치.원점YM;
         }
         public virtual Boolean Init() => false;
         public virtual Boolean Active() => false;
@@ -210,9 +207,9 @@ namespace TE1.Schemas
                     CogImage8Grey image = new CogImage8Grey();
                     cogImage8Root.Initialize(ImageWidth, ImageHeight, BufferAddress, ImageWidth, null);
                     image.SetRoot(cogImage8Root);
-                    
-                    if(this.회전 == 회전구분.None) return image;
-                    
+
+                    if (this.회전 == 회전구분.None) return image;
+
                     return RotateImage(image, (CogIPOneImageFlipRotateOperationConstants)this.회전);
                 }
             }
@@ -236,7 +233,7 @@ namespace TE1.Schemas
             // 회전 변환 설정
             CogIPOneImageFlipRotate rotateTool = new CogIPOneImageFlipRotate();
             rotateTool.OperationInPixelSpace = rotate;
-            
+
             // 회전 도구를 이미지 프로세싱 도구에 추가
             ipOneImageTool.Operators.Add(rotateTool);
 

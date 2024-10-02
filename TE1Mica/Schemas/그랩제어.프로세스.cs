@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace TE1.Schemas
 {
@@ -226,7 +227,8 @@ namespace TE1.Schemas
                     그랩장치 장치 = this.GetItem(캠);
                     if (장치 == null || !장치.상태) continue;
                     장치.TurnOn();
-                    Thread.Sleep(100);
+                    Task.Delay(100);
+                    //Thread.Sleep(100);
                     장치.Trig();
                 }
             }).Start();

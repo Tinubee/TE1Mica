@@ -36,7 +36,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Remote|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>\\192.168.11.5\ivm\TE1Mica\Execute\</OutputPath>
+    <OutputPath>\\192.168.10.7\ivm\TE1Mica\Execute\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
@@ -482,13 +482,13 @@
     <None Include="Resources\Korea.svg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\MvUtils\MvUtils\MvUtils.csproj">
-      <Project>{bdb2ed5c-4a7f-4116-b5a0-1831a1ec0624}</Project>
-      <Name>MvUtils</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TE1MicaV\TE1MicaV.csproj">
       <Project>{599d0f72-e3d2-43f4-aa78-f5cf1e5a6262}</Project>
       <Name>TE1MicaV</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\IVM\TE1Vision\MvUtils\MvUtils\MvUtils.csproj">
+      <Project>{bdb2ed5c-4a7f-4116-b5a0-1831a1ec0624}</Project>
+      <Name>MvUtils</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

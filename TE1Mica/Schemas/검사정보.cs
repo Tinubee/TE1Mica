@@ -40,7 +40,7 @@ namespace TE1.Schemas
     [Table("inspd")]
     public class 검사정보
     {
-        [Column("idwdt"), JsonProperty("idwdt"), Required, Key, Translation("Time", "일시")]
+        [Column("idwdt"), JsonProperty("idwdt"), Translation("Time", "일시")]
         public DateTime 일시 { get; set; } = DateTime.Now;
         [Column("idmod"), JsonProperty("idmod"), Translation("Model", "모델")]
         public 모델구분 모델 { get; set; } = 모델구분.None;

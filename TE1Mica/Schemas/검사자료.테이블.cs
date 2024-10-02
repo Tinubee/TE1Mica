@@ -19,6 +19,7 @@ namespace TE1.Schemas
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<검사정보>().HasKey(e => new { e.일시 });
+            //modelBuilder.Entity<검사정보>().Property(e => new { e.일시 });
             modelBuilder.Entity<검사정보>().Property(e => e.모델).HasConversion(new EnumToNumberConverter<모델구분, Int32>());
             modelBuilder.Entity<검사정보>().Property(e => e.시트).HasConversion(new EnumToNumberConverter<시트구분, Int32>());
             base.OnModelCreating(modelBuilder);
@@ -29,7 +30,11 @@ namespace TE1.Schemas
 
         public void Save()
         {
-            try { this.SaveChanges(); }
+            try
+            { 
+                this.SaveChanges();
+                Debug.WriteLine("검사자료 Save 완료.", "자료저장");
+            }
             catch (Exception ex) { Debug.WriteLine(ex.ToString(), "자료저장"); }
         }
 

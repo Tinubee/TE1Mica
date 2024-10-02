@@ -195,6 +195,7 @@ namespace TE1.Schemas
                 accepted = this.IsAccepted();
                 검사?.SetResults(this);
                 this.검사종료 = DateTime.Now;
+                Debug.WriteLine($"{this.카메라.ToString()} => {this.검사시간.ToString("#,0")} msec", "검사시간");
                 DisplayResult(검사);
                 Global.검사자료.검사완료체크(this.카메라, 검사);
                 //Global.캘리브?.AddNew(this.ToolBlock, this.카메라);
